@@ -8,6 +8,6 @@ type ageGroup struct {
 }
 
 type Response struct {
-	Province interface{} `json:"Province"`
-	AgeGroup ageGroup    `json:"AgeGroup"`
+	Province map[string]int `json:"Province"`
+	AgeGroup ageGroup       `json:"AgeGroup"`
 }

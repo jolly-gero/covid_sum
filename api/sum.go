@@ -12,7 +12,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func GetSummary(c *gin.Context) {
+func GetSummaryEndpoint(c *gin.Context) {
 	covidData, err := requests.Get("https://static.wongnai.com/devinterview/covid-cases.json", nil, nil, 30)
 
 	if err != nil {
@@ -28,8 +28,12 @@ func GetSummary(c *gin.Context) {
 		return
 	}
 
-	data := result.Data
-	sum := s.Summarize(data)
+	var sum m.Response
+	if err := s.Summarize(result.Data, &sum); err != nil {
+		log.Errorln("system error summary --> ", err)
+		c.JSON(http.StatusInternalServerError, Result{Error: "get summary error"})
+		return
+	}
 
-	c.JSON(http.StatusOK, Result{Message: "get Covid-19 Summary", Count: len(data), Data: sum})
+	c.JSON(http.StatusOK, Result{Message: "get Covid-19 Summary", Count: len(result.Data), Data: sum})
 }
