@@ -1,8 +1,6 @@
 package api
 
-import (
-	m "covid-stats/model"
-)
+import m "covid-stats/model"
 
 type Result struct {
 	Message string      `json:"message,omitempty"`

@@ -19,7 +19,7 @@ func Summarize (data []m.ResponseCovidData, result *m.Response)  error{
 		// ageGroup
 		a := v.Age
 		switch {
-		case 0<=a && a<31:
+		case 0<a && a<31:   
 			result.AgeGroup.Young += 1 
 
 		case 31<=a && a<61:
@@ -28,7 +28,7 @@ func Summarize (data []m.ResponseCovidData, result *m.Response)  error{
 		case a>=61:
 			result.AgeGroup.Old += 1 
 
-		default:
+		default:    //! define that age : 0 is N/A
 			result.AgeGroup.Undefined += 1 
 
 		}
